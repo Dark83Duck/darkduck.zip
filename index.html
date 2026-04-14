@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>선생님의 교실 — 교육자료 포트폴리오</title>
-  <meta name="description" content="서울 초등학교 6학년 담임교사이자 교육연구부장이 직접 개발한 교육자료 공유 페이지입니다." />
+  <title>회색오리.ZIP</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
@@ -581,14 +580,49 @@
   <nav class="nav">
     <div class="nav-inner">
       <div class="nav-logo">
-        <div class="nav-logo-icon">📚</div>
-        선생님의 교실
+      <!-- 회색오리 SVG 아바타 -->
+      <div class="about-avatar" style="background:none; width:50px; height:50px; animation: float 3s ease-in-out infinite;">
+        <svg viewBox="0 -20 100 100" xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+          <!-- Body -->
+          <ellipse cx="50" cy="62" rx="28" ry="22" fill="#9ca3af"/>
+          <!-- Wing shading -->
+          <ellipse cx="50" cy="65" rx="20" ry="14" fill="#6b7280"/>
+          <!-- Wing highlight -->
+          <ellipse cx="44" cy="60" rx="12" ry="7" fill="#d1d5db" opacity="0.5"/>
+          <!-- Neck -->
+          <ellipse cx="50" cy="42" rx="10" ry="13" fill="#9ca3af"/>
+          <!-- Head -->
+          <circle cx="50" cy="30" r="16" fill="#9ca3af"/>
+          <!-- Head top darker -->
+          <ellipse cx="50" cy="22" rx="10" ry="7" fill="#6b7280"/>
+          <!-- Eye white -->
+          <circle cx="55" cy="27" r="5" fill="#fff"/>
+          <!-- Eye iris -->
+          <circle cx="56" cy="27" r="3" fill="#1f2937"/>
+          <!-- Eye shine -->
+          <circle cx="57" cy="25.5" r="1" fill="#fff"/>
+          <!-- Beak -->
+          <path d="M63 30 Q73 28 72 33 Q73 38 63 36 Z" fill="#f59e0b"/>
+          <!-- Beak line -->
+          <line x1="63" y1="33" x2="72" y2="33" stroke="#d97706" stroke-width="0.8"/>
+          <!-- Tail feather -->
+          <path d="M22 58 Q10 48 14 62 Q10 70 22 68 Z" fill="#6b7280"/>
+          <!-- Left foot -->
+          <path d="M38 82 Q33 88 28 86 Q30 84 33 83 Q29 89 26 90 Q28 87 31 85 Q27 91 25 93 Q28 89 32 87 Q38 84 38 82Z" fill="#f59e0b"/>
+          <!-- Right foot -->
+          <path d="M55 82 Q50 88 45 86 Q47 84 50 83 Q46 89 43 90 Q45 87 48 85 Q44 91 42 93 Q45 89 49 87 Q55 84 55 82Z" fill="#f59e0b"/>
+          <!-- Water ripple -->
+          <ellipse cx="50" cy="85" rx="32" ry="5" fill="none" stroke="#60a5fa" stroke-width="1.2" opacity="0.5"/>
+          <ellipse cx="50" cy="88" rx="22" ry="3.5" fill="none" stroke="#60a5fa" stroke-width="0.8" opacity="0.3"/>
+        </svg>
+      </div>
+        회색오리.ZIP
       </div>
       <ul class="nav-menu">
         <li><a href="#materials">교육자료</a></li>
         <li><a href="#about">소개</a></li>
         <li>
-          <a href="https://github.com/YOUR_USERNAME/YOUR_REPO" target="_blank" rel="noopener" class="nav-github">
+          <a href="https://github.com/Dark83Duck/darkduck.zip" target="_blank" rel="noopener" class="nav-github">
             ⬡ GitHub
           </a>
         </li>
@@ -605,22 +639,24 @@
 
     <div class="hero-badge fade-up">
       <span class="hero-badge-dot"></span>
-      Seoul Elementary · 교육연구부장
+      Sharing the value of education
     </div>
     <h1 class="fade-up fade-up-1">
       교육의 <em>가치</em>를<br>함께 나눕니다
     </h1>
     <p class="hero-desc fade-up fade-up-2">
-      6학년 담임교사이자 교육연구부장이 직접 개발한<br>
-      수업 자료, 클럽 훈련 계획, 인성교육 커리큘럼을 공유합니다.
+	Gemini, NotebookLM, Cluade, Canva 등을 활용하여 만든<br>
+      수업 및 운영자료 등을 공유합니다.
     </p>
     <div class="hero-btns fade-up fade-up-3">
       <a href="#materials" class="btn-primary">
         ↓ 자료 둘러보기
       </a>
+<!--
       <a href="https://github.com/YOUR_USERNAME/YOUR_REPO" target="_blank" rel="noopener" class="btn-ghost">
         ⬡ GitHub에서 보기
       </a>
+-->
     </div>
   </section>
 
@@ -661,16 +697,16 @@
   <main class="main" id="materials">
 
     <div class="section-eyebrow">Educational Resources</div>
-    <div class="section-title">전체 교육자료</div>
+    <div class="section-title">전체 수업 및 운영자료</div>
 
-    <!-- Google Drive 안내 박스 -->
+    <!-- 안내 박스 -->
     <div class="gdrive-info">
       <div class="gdrive-info-icon">💡</div>
       <div class="gdrive-info-text">
-        <strong>구글 드라이브 직접 다운로드 안내</strong><br>
-        아래 자료들은 구글 드라이브에 저장되어 있습니다.
-        <span class="gdrive-info-code">다운로드</span> 버튼을 클릭하면 파일이 바로 저장됩니다.
-        구글 계정 로그인 없이도 공유 설정에 따라 다운로드할 수 있습니다.
+        <strong>다운로드 및 사본 만들기 안내</strong><br>
+        아래 자료들은 구글 드라이브 또는 Canva에 저장되어 있습니다.<br>
+        구글 계정 로그인 없이도 <span class="gdrive-info-code">다운로드</span> 버튼을 클릭하면 파일이 바로 저장됩니다.<br>
+        Canva의 경우는 Canva 로그인을 해야 <span class="gdrive-info-code">사본 만들기</span>를 할 수 있습니다.
       </div>
     </div>
 
@@ -868,21 +904,54 @@
   ============================ -->
   <section class="about-section" id="about">
     <div class="about-inner">
-      <div class="about-avatar">👩‍🏫</div>
-      <div class="about-name">회색오리 선생님</div>
-      <div class="about-role">서울 초등학교 · 6학년 담임 · 교육연구부장</div>
+     <!-- 회색오리 SVG 아바타 -->
+      <div class="about-avatar" style="background:none; width:100px; height:100px; animation: float 3s ease-in-out infinite;">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+          <!-- Body -->
+          <ellipse cx="50" cy="62" rx="28" ry="22" fill="#9ca3af"/>
+          <!-- Wing shading -->
+          <ellipse cx="50" cy="65" rx="20" ry="14" fill="#6b7280"/>
+          <!-- Wing highlight -->
+          <ellipse cx="44" cy="60" rx="12" ry="7" fill="#d1d5db" opacity="0.5"/>
+          <!-- Neck -->
+          <ellipse cx="50" cy="42" rx="10" ry="13" fill="#9ca3af"/>
+          <!-- Head -->
+          <circle cx="50" cy="30" r="16" fill="#9ca3af"/>
+          <!-- Head top darker -->
+          <ellipse cx="50" cy="22" rx="10" ry="7" fill="#6b7280"/>
+          <!-- Eye white -->
+          <circle cx="55" cy="27" r="5" fill="#fff"/>
+          <!-- Eye iris -->
+          <circle cx="56" cy="27" r="3" fill="#1f2937"/>
+          <!-- Eye shine -->
+          <circle cx="57" cy="25.5" r="1" fill="#fff"/>
+          <!-- Beak -->
+          <path d="M63 30 Q73 28 72 33 Q73 38 63 36 Z" fill="#f59e0b"/>
+          <!-- Beak line -->
+          <line x1="63" y1="33" x2="72" y2="33" stroke="#d97706" stroke-width="0.8"/>
+          <!-- Tail feather -->
+          <path d="M22 58 Q10 48 14 62 Q10 70 22 68 Z" fill="#6b7280"/>
+          <!-- Left foot -->
+          <path d="M38 82 Q33 88 28 86 Q30 84 33 83 Q29 89 26 90 Q28 87 31 85 Q27 91 25 93 Q28 89 32 87 Q38 84 38 82Z" fill="#f59e0b"/>
+          <!-- Right foot -->
+          <path d="M55 82 Q50 88 45 86 Q47 84 50 83 Q46 89 43 90 Q45 87 48 85 Q44 91 42 93 Q45 89 49 87 Q55 84 55 82Z" fill="#f59e0b"/>
+          <!-- Water ripple -->
+          <ellipse cx="50" cy="85" rx="32" ry="5" fill="none" stroke="#60a5fa" stroke-width="1.2" opacity="0.5"/>
+          <ellipse cx="50" cy="88" rx="22" ry="3.5" fill="none" stroke="#60a5fa" stroke-width="0.8" opacity="0.3"/>
+        </svg>
+      </div>
+      <div class="about-name">회색오리</div>
+      <div class="about-role">서울에서 초등학교에 근무하는 교사</div>
       <p class="about-desc">
-        학생 중심의 창의적 교육을 추구하며 캔버스 AI 바이브 코딩,
-        티볼 클럽 코칭, 인성교육 프로그램 등 다양한 교육 경험을
-        직접 설계하고 실천합니다. 이곳에서 만든 자료가
-        다른 선생님들께도 도움이 되길 바랍니다.
+        Gemini, NotebookLM, Claude, Canva 등으로 교육 및 업무자료 만들기를 취미로 하고 있습니다.<br>
+	이곳에서 만든 자료가 다른 선생님들께도 도움이 되길 바랍니다.
       </p>
       <div class="about-chips">
-        <span class="chip">🎨 Canva AI 수업</span>
-        <span class="chip">⚾ 티볼 클럽</span>
-        <span class="chip">🌱 인성교육</span>
+        <span class="chip">✨ Gemini</span>
+        <span class="chip">📓 NotebookLM</span>
+        <span class="chip">🤖 Claude</span>
+        <span class="chip">🎨Canva</span>
         <span class="chip">💻 Node.js</span>
-        <span class="chip">📋 교육연구</span>
       </div>
     </div>
   </section>
