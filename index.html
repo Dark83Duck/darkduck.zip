@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>선생님의 교실 — 교육자료 포트폴리오</title>
+  <meta name="description" content="초등학교 담임교사이자 교육연구부장이 직접 개발한 교육자료 공유 페이지입니다." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================
+       RESET & BASE
+    ============================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #f5f2ed;
+      color: #1e1e2e;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ============================
+       CSS VARIABLES
+    ============================ */
+    :root {
+      --navy: #1a1a2e;
+      --navy-mid: #16213e;
+      --gold: #d4a847;
+      --gold-light: #e8d5b0;
+      --cream: #f5f2ed;
+      --white: #ffffff;
+      --text-muted: #888;
+      --border: #e4e0d8;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    /* ============================
+       ANIMATIONS
+    ============================ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-8px); }
+    }
+    .fade-up { animation: fadeUp 0.7s ease both; }
+    .fade-up-1 { animation-delay: 0.1s; }
+    .fade-up-2 { animation-delay: 0.2s; }
+    .fade-up-3 { animation-delay: 0.3s; }
+    .fade-up-4 { animation-delay: 0.4s; }
+
+    /* ============================
+       NAVIGATION
+    ============================ */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(26, 26, 46, 0.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(212, 168, 71, 0.15);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo-icon {
+      width: 32px; height: 32px;
+      background: var(--gold);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav-menu a {
+      color: #aaa;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      transition: color 0.2s;
+      padding: 4px 0;
+      border-bottom: 1.5px solid transparent;
+    }
+    .nav-menu a:hover {
+      color: var(--gold-light);
+      border-bottom-color: var(--gold);
+    }
+    .nav-github {
+      background: rgba(212, 168, 71, 0.15);
+      color: var(--gold) !important;
+      border: 1px solid rgba(212, 168, 71, 0.35) !important;
+      border-bottom: 1px solid rgba(212, 168, 71, 0.35) !important;
+      padding: 6px 16px !important;
+      border-radius: 6px;
+      font-size: 12px !important;
+      transition: background 0.2s !important;
+    }
+    .nav-github:hover { background: rgba(212, 168, 71, 0.28) !important; }
+
+    /* ============================
+       HERO
+    ============================ */
+    .hero {
+      background: var(--navy);
+      padding: 6rem 2rem 7rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-bg-circle-1 {
+      width: 600px; height: 600px;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(212,168,71,0.07) 0%, transparent 65%);
+    }
+    .hero-bg-circle-2 {
+      width: 300px; height: 300px;
+      bottom: -100px; right: 10%;
+      background: radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 70%);
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(212,168,71,0.12);
+      border: 1px solid rgba(212,168,71,0.3);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: float 2s ease-in-out infinite;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 6vw, 58px);
+      color: #fff;
+      line-height: 1.18;
+      margin-bottom: 1.2rem;
+      letter-spacing: -0.5px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-desc {
+      color: #8a8aaa;
+      font-size: 16px;
+      max-width: 480px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.9;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      padding: 12px 28px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 700;
+      font-family: 'Noto Sans KR', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--gold-light);
+      border: 1px solid rgba(232,213,176,0.35);
+      padding: 12px 28px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 500;
+      font-family: 'Noto Sans KR', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-ghost:hover { background: rgba(232,213,176,0.08); transform: translateY(-1px); }
+
+    /* WAVE */
+    .wave-divider {
+      display: block;
+      line-height: 0;
+      background: var(--navy);
+    }
+    .wave-divider svg { display: block; width: 100%; }
+
+    /* ============================
+       STATS BAR
+    ============================ */
+    .stats-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+    .stats-bar-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      divide: column;
+    }
+    .stat-item {
+      padding: 1.8rem 1.5rem;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      color: var(--navy);
+      display: block;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+
+    /* ============================
+       MAIN CONTENT
+    ============================ */
+    .main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 4rem 2rem 5rem;
+    }
+
+    .section-eyebrow {
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      color: var(--navy);
+      margin-bottom: 2rem;
+    }
+
+    /* FILTER TABS */
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .filter-tab {
+      padding: 7px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: #666;
+      cursor: pointer;
+      transition: all 0.18s;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+    .filter-tab:hover { border-color: var(--gold); color: var(--navy); }
+    .filter-tab.active {
+      background: var(--navy);
+      color: var(--gold-light);
+      border-color: var(--navy);
+    }
+
+    /* ============================
+       CARDS GRID
+    ============================ */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: transform 0.22s, box-shadow 0.22s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.09);
+    }
+
+    /* Card thumbnail */
+    .card-thumb {
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+      position: relative;
+    }
+    .thumb-blue   { background: linear-gradient(135deg, #dbeeff 0%, #bdd8f8 100%); }
+    .thumb-green  { background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); }
+    .thumb-amber  { background: linear-gradient(135deg, #fef9c3 0%, #fde68a 100%); }
+    .thumb-purple { background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%); }
+    .thumb-rose   { background: linear-gradient(135deg, #ffe4e6 0%, #fecdd3 100%); }
+
+    /* Badges */
+    .card-badge {
+      position: absolute;
+      top: 12px; right: 12px;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .badge-new     { background: #ef4444; color: #fff; }
+    .badge-updated { background: #10b981; color: #fff; }
+    .badge-prep    { background: #f59e0b; color: #fff; }
+
+    /* Card body */
+    .card-body {
+      padding: 1.2rem 1.3rem 1.3rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .card-category {
+      font-size: 10px;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    .card-title {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--navy);
+      margin-bottom: 7px;
+      line-height: 1.45;
+    }
+    .card-desc {
+      font-size: 12.5px;
+      color: #888;
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 14px;
+    }
+
+    /* Card footer */
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #f0ece5;
+      padding-top: 12px;
+      gap: 8px;
+    }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .card-date { font-size: 11px; color: #bbb; }
+    .card-tag {
+      font-size: 10px;
+      background: #f5f2ed;
+      color: #888;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* Download button */
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--navy);
+      color: var(--gold-light);
+      border: none;
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: 'Noto Sans KR', sans-serif;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.15s;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .btn-download:hover {
+      background: #2a2a4e;
+      transform: translateY(-1px);
+    }
+    .btn-download svg {
+      width: 13px; height: 13px;
+      fill: currentColor;
+    }
+
+    /* View-only button */
+    .btn-view {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: transparent;
+      color: #aaa;
+      border: 1px solid #e4e0d8;
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      font-family: 'Noto Sans KR', sans-serif;
+      cursor: pointer;
+      transition: all 0.18s;
+      text-decoration: none;
+    }
+    .btn-view:hover { border-color: var(--navy); color: var(--navy); }
+
+    /* ============================
+       GDRIVE INFO BOX
+    ============================ */
+    .gdrive-info {
+      background: linear-gradient(135deg, #fffbeb, #fef3c7);
+      border: 1px solid #fde68a;
+      border-radius: var(--radius-md);
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .gdrive-info-icon { font-size: 20px; margin-top: 1px; flex-shrink: 0; }
+    .gdrive-info-text { font-size: 13px; color: #92400e; line-height: 1.6; }
+    .gdrive-info-text strong { font-weight: 700; }
+    .gdrive-info-code {
+      background: rgba(0,0,0,0.07);
+      padding: 1px 7px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 12px;
+    }
+
+    /* ============================
+       ABOUT SECTION
+    ============================ */
+    .about-section {
+      background: var(--navy);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    .about-inner { max-width: 640px; margin: 0 auto; }
+    .about-avatar {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      margin: 0 auto 1.2rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px;
+    }
+    .about-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .about-role {
+      font-size: 13px;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 1.2rem;
+    }
+    .about-desc {
+      font-size: 14px;
+      color: #8a8aaa;
+      line-height: 1.9;
+      margin-bottom: 1.8rem;
+    }
+    .about-chips {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .chip {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #ccc;
+      font-size: 12px;
+      padding: 5px 14px;
+      border-radius: 20px;
+    }
+
+    /* ============================
+       FOOTER
+    ============================ */
+    .footer {
+      background: #111122;
+      padding: 2rem;
+      text-align: center;
+      font-size: 12px;
+      color: #444;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    .footer a { color: var(--gold); }
+    .footer a:hover { text-decoration: underline; }
+
+    /* ============================
+       RESPONSIVE
+    ============================ */
+    @media (max-width: 720px) {
+      .nav-menu { display: none; }
+      .stats-bar-inner { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .hero { padding: 4rem 1.2rem 5rem; }
+      .main { padding: 3rem 1.2rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================
+       NAVIGATION
+  ============================ -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <div class="nav-logo-icon">📚</div>
+        회색오리.zip
+      </div>
+      <ul class="nav-menu">
+        <li><a href="#materials">교육자료</a></li>
+        <li><a href="#about">소개</a></li>
+        <li>
+          <a href="https://github.com/Dark83Duck/ai" target="_blank" rel="noopener" class="nav-github">
+            ⬡ GitHub
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ============================
+       HERO
+  ============================ -->
+  <section class="hero">
+    <div class="hero-bg-circle hero-bg-circle-1"></div>
+    <div class="hero-bg-circle hero-bg-circle-2"></div>
+
+    <div class="hero-badge fade-up">
+      <span class="hero-badge-dot"></span>
+      Elementary School Teacher
+    </div>
+    <h1 class="fade-up fade-up-1">
+      교육의 <em>가치</em>를<br>함께 나눕니다
+    </h1>
+    <p class="hero-desc fade-up fade-up-2">
+      초등학교 교사이자 Gemini와 Claude를 활용하여 직접 개발한<br>
+      교육 및 업무자료를 공유합니다.
+    </p>
+    <div class="hero-btns fade-up fade-up-3">
+      <a href="#materials" class="btn-primary">
+        ↓ 자료 둘러보기
+      </a>
+      <a href="https://github.com/Dark83Duck/ai" target="_blank" rel="noopener" class="btn-ghost">
+        ⬡ GitHub에서 보기
+      </a>
+    </div>
+  </section>
+
+  <!-- Wave -->
+  <div class="wave-divider">
+    <svg viewBox="0 0 1440 70" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" height="60">
+      <path d="M0,50 C360,100 1080,0 1440,50 L1440,0 L0,0 Z" fill="#1a1a2e"/>
+    </svg>
+  </div>
+
+  <!-- ============================
+       STATS BAR
+  ============================ -->
+  <div class="stats-bar">
+    <div class="stats-bar-inner">
+      <div class="stat-item">
+        <span class="stat-num">24</span>
+        <div class="stat-label">총 자료 수</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">4</span>
+        <div class="stat-label">카테고리</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">16</span>
+        <div class="stat-label">수업 계획안</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">2026</span>
+        <div class="stat-label">기준 연도</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================
+       MAIN CONTENT
+  ============================ -->
+  <main class="main" id="materials">
+
+    <div class="section-eyebrow">Educational Resources</div>
+    <div class="section-title">전체 교육자료</div>
+
+    <!-- Google Drive 안내 박스 -->
+    <div class="gdrive-info">
+      <div class="gdrive-info-icon">💡</div>
+      <div class="gdrive-info-text">
+        <strong>구글 드라이브 직접 다운로드 안내</strong><br>
+        아래 자료들은 구글 드라이브에 저장되어 있습니다.
+        <span class="gdrive-info-code">다운로드</span> 를 클릭하면 파일이 바로 저장됩니다.
+        구글 계정 로그인 없이도 공유 설정에 따라 다운로드할 수 있습니다.
+      </div>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="filterCards('all', this)">전체</button>
+      <button class="filter-tab" onclick="filterCards('curriculum', this)">📖 교육과정</button>
+      <button class="filter-tab" onclick="filterCards('club', this)">🏃 클럽활동</button>
+      <button class="filter-tab" onclick="filterCards('character', this)">🌱 인성교육</button>
+      <button class="filter-tab" onclick="filterCards('admin', this)">📋 학교행정</button>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="cards-grid" id="cardsGrid">
+
+      <!-- ============================
+           카드 1 — 캔버스 AI 커리큘럼
+           구글 드라이브 직접 다운로드 예시
+      ============================ -->
+      <div class="card" data-cat="curriculum">
+        <div class="card-thumb thumb-blue">
+          🎨
+          <span class="card-badge badge-new">NEW</span>
+        </div>
+        <div class="card-body">
+          <div class="card-category">교육과정</div>
+          <div class="card-title">캔버스 AI 바이브 코딩 클럽 커리큘럼</div>
+          <div class="card-desc">
+            6학년 대상 16차시 AI 코딩 수업. 이미지 생성, UI/UX 디자인,
+            인터랙티브 프로토타입 제작 포함. 40분 수업 스크립트 완비.
+          </div>
+          <div class="card-footer">
+            <div class="card-meta">
+              <span class="card-date">2026.03</span>
+              <span class="card-tag">PDF</span>
+            </div>
+            <!--
+              ★ 구글 드라이브 직접 다운로드 링크 예시 ★
+              원본 공유 링크:
+                https://drive.google.com/file/d/FILE_ID/view?usp=sharing
+              다운로드 링크 (view → uc?export=download):
+                https://drive.google.com/uc?export=download&id=FILE_ID
+              FILE_ID 위치: URL에서 /d/ 와 /view 사이의 문자열
+            -->
+            <a
+              class="btn-download"
+              href="https://drive.google.com/uc?export=download&id=1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs"
+              target="_blank"
+              rel="noopener"
+              download
+            >
+              <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              다운로드
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 카드 2 — 티볼 훈련 -->
+      <div class="card" data-cat="club">
+        <div class="card-thumb thumb-green">
+          ⚾
+          <span class="card-badge badge-updated">업데이트</span>
+        </div>
+        <div class="card-body">
+          <div class="card-category">클럽활동</div>
+          <div class="card-title">티볼 수비 훈련 프로그램</div>
+          <div class="card-desc">
+            60분 구조화 훈련 포맷과 단계별 수비 드릴.
+            초등학생 눈높이에 맞춘 포지션별 기초 훈련 계획.
+          </div>
+          <div class="card-footer">
+            <div class="card-meta">
+              <span class="card-date">2026.04</span>
+              <span class="card-tag">DOCX</span>
+            </div>
+            <a
+              class="btn-download"
+              href="https://drive.google.com/uc?export=download&id=YOUR_FILE_ID_HERE"
+              target="_blank"
+              rel="noopener"
+              download
+            >
+              <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              다운로드
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 카드 3 — 인성교육주간 -->
+      <div class="card" data-cat="character">
+        <div class="card-thumb thumb-amber">
+          💛
+        </div>
+        <div class="card-body">
+          <div class="card-category">인성교육</div>
+          <div class="card-title">인성교육주간 — 배려 중심 커리큘럼</div>
+          <div class="card-desc">
+            학년군별 차별화 수업안. Google NotebookLM 업로드용
+            마크다운 형식으로 제공. 저학년·중학년·고학년 구분.
+          </div>
+          <div class="card-footer">
+            <div class="card-meta">
+              <span class="card-date">2026.03</span>
+              <span class="card-tag">MD</span>
+            </div>
+            <a
+              class="btn-download"
+              href="https://drive.google.com/uc?export=download&id=YOUR_FILE_ID_HERE"
+              target="_blank"
+              rel="noopener"
+              download
+            >
+              <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              다운로드
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 카드 4 — 선행교육 연수 -->
+      <div class="card" data-cat="admin">
+        <div class="card-thumb thumb-purple">
+          📋
+        </div>
+        <div class="card-body">
+          <div class="card-category">학교행정</div>
+          <div class="card-title">선행교육 금지 직원 연수 자료</div>
+          <div class="card-desc">
+            서울시교육청 2026 지침 기반 법정 연수 기획안,
+            PPT 스크립트, 연수 명단 서식 일괄 제공.
+          </div>
+          <div class="card-footer">
+            <div class="card-meta">
+              <span class="card-date">2026.02</span>
+              <span class="card-tag">ZIP</span>
+            </div>
+            <a
+              class="btn-download"
+              href="https://drive.google.com/uc?export=download&id=YOUR_FILE_ID_HERE"
+              target="_blank"
+              rel="noopener"
+              download
+            >
+              <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              다운로드
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 카드 5 — Node.js 학습로드맵 -->
+      <div class="card" data-cat="curriculum">
+        <div class="card-thumb thumb-rose">
+          💻
+          <span class="card-badge badge-prep">준비중</span>
+        </div>
+        <div class="card-body">
+          <div class="card-category">교육과정</div>
+          <div class="card-title">Node.js 학습 로드맵 6단계</div>
+          <div class="card-desc">
+            비전공 교사를 위한 Node.js 입문 커리큘럼.
+            Day 1 핵심 개념, 모듈 시스템, 실습 과제까지 단계별 안내.
+          </div>
+          <div class="card-footer">
+            <div class="card-meta">
+              <span class="card-date">2026.04</span>
+              <span class="card-tag">PDF</span>
+            </div>
+            <a
+              class="btn-view"
+              href="#"
+            >
+              준비 중
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 카드 6 — 추가 예정 -->
+      <div class="card" data-cat="curriculum" style="background: var(--navy); border-color: #2a2a4a; cursor:pointer;" onclick="window.open('https://github.com/YOUR_USERNAME/YOUR_REPO','_blank')">
+        <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; min-height:240px; padding:2rem; text-align:center; gap:12px;">
+          <div style="width:48px;height:48px;border-radius:50%;background:rgba(212,168,71,0.15);border:1px solid rgba(212,168,71,0.3);display:flex;align-items:center;justify-content:center;font-size:22px;">+</div>
+          <div style="color:var(--gold-light);font-size:15px;font-weight:700;">더 많은 자료</div>
+          <div style="color:#555;font-size:12px;line-height:1.6;">GitHub 레포지토리에서<br>전체 자료를 확인하세요</div>
+        </div>
+      </div>
+
+    </div><!-- /cards-grid -->
+  </main>
+
+  <!-- ============================
+       ABOUT SECTION
+  ============================ -->
+  <section class="about-section" id="about">
+    <div class="about-inner">
+      <div class="about-avatar">👩‍🏫</div>
+      <div class="about-name">회색오리 선생님</div>
+      <div class="about-role">서울 초등학교 · 6학년 담임 · 교육연구부장</div>
+      <p class="about-desc">
+        학생 중심의 창의적 교육을 추구하며 캔버스 AI 바이브 코딩,
+        티볼 클럽 코칭, 인성교육 프로그램 등 다양한 교육 경험을
+        직접 설계하고 실천합니다. 이곳에서 만든 자료가
+        다른 선생님들께도 도움이 되길 바랍니다.
+      </p>
+      <div class="about-chips">
+        <span class="chip">🎨 Canva AI 수업</span>
+        <span class="chip">⚾ 티볼 클럽</span>
+        <span class="chip">🌱 인성교육</span>
+        <span class="chip">💻 Node.js</span>
+        <span class="chip">📋 교육연구</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================
+       FOOTER
+  ============================ -->
+  <footer class="footer">
+    <p>
+      &copy; 2026 선생님의 교실 &nbsp;·&nbsp;
+      <a href="https://github.com/YOUR_USERNAME/YOUR_REPO" target="_blank" rel="noopener">GitHub</a>
+      &nbsp;·&nbsp; Made with ❤️ for education
+    </p>
+  </footer>
+
+  <!-- ============================
+       FILTER JS
+  ============================ -->
+  <script>
+    function filterCards(cat, btn) {
+      // Update active tab
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Show/hide cards
+      document.querySelectorAll('.card').forEach(card => {
+        if (cat === 'all' || card.dataset.cat === cat) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
