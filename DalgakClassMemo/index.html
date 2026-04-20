@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>딸깍학급메모</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f3f4f6; user-select: none; }
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        ::-webkit-scrollbar { display: none; }
+        /* 로고 클릭 효과를 위한 스타일 */
+        .cursor-pointer { cursor: pointer; }
+        .header-logo:active { opacity: 0.7; transform: scale(0.98); }
+    </style>
+</head>
+<body class="text-gray-800 h-screen flex flex-col relative">
+
+    <header class="bg-blue-600 text-white p-4 shadow-md flex justify-between items-center z-10">
+        <h1 id="header-logo" class="text-xl font-bold cursor-pointer header-logo">👨‍🏫 딸깍학급메모</h1>
+        <div class="flex gap-2">
+            <button id="btn-toggle-view" class="text-sm font-medium bg-blue-500 hover:bg-blue-700 px-3 py-1 rounded-lg transition shadow-sm">지난기록 돌아보기</button>
+            <button id="btn-back" class="hidden text-sm font-medium bg-blue-700 hover:bg-blue-800 px-3 py-1 rounded-lg transition shadow-sm">처음으로</button>
+        </div>
+    </header>
+
+    <main class="flex-1 overflow-y-auto p-4 flex flex-col" id="main-container">
+        
+        <!-- [기록하기 섹션] -->
+        <div id="record-section">
+            <div id="step-1" class="fade-in">
+                <p class="text-gray-600 mb-4 font-medium text-center">학생을 선택하세요.</p>
+                <div id="loading-students" class="text-center py-10">
+                    <p class="text-gray-500">명단을 불러오는 중...</p>
+                </div>
+                <div class="grid grid-cols-3 sm:grid-cols-4 gap-3 hidden" id="student-grid"></div>
+            </div>
+
+            <div id="step-2" class="hidden fade-in">
+                <h2 class="text-2xl font-bold text-center mb-6 text-blue-700"><span id="display-student"></span> 학생</h2>
+                <div class="space-y-6 pb-10">
+                    <div>
+                        <h3 class="text-sm font-bold text-blue-600 mb-2 border-b-2 border-blue-200 pb-1">🌟 칭찬 및 모범</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button class="event-btn bg-white border border-blue-300 text-blue-700 py-3 rounded-xl text-sm font-bold" data-type="칭찬" data-event="적극적인 발표 및 수업 참여">🙋 발표/참여 우수</button>
+                            <button class="event-btn bg-white border border-blue-300 text-blue-700 py-3 rounded-xl text-sm font-bold" data-type="칭찬" data-event="친구를 배려하고 양보함">🤝 배려 및 양보</button>
+                            <button class="event-btn bg-white border border-blue-300 text-blue-700 py-3 rounded-xl text-sm font-bold" data-type="칭찬" data-event="바른 언어 사용 및 예의 바른 인사">🙇 바른 인사/언어</button>
+                            <button class="event-btn bg-white border border-blue-300 text-blue-700 py-3 rounded-xl text-sm font-bold" data-type="칭찬" data-event="자기 자리 정리정돈 및 청소 우수">✨ 정리정돈/청소</button>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-orange-500 mb-2 border-b-2 border-orange-200 pb-1">📚 학습 및 수업 지도</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button class="event-btn bg-white border border-orange-300 text-orange-700 py-3 rounded-xl text-sm font-bold" data-type="학습지도" data-event="수업 중 떠듦 및 장난">💬 수업 중 떠듦</button>
+                            <button class="event-btn bg-white border border-orange-300 text-orange-700 py-3 rounded-xl text-sm font-bold" data-type="학습지도" data-event="학습 준비물 미지참">🎒 준비물 미지참</button>
+                            <button class="event-btn bg-white border border-orange-300 text-orange-700 py-3 rounded-xl text-sm font-bold" data-type="학습지도" data-event="과제 및 알림장 미수행">📝 과제/숙제 미흡</button>
+                            <button class="event-btn bg-white border border-orange-300 text-orange-700 py-3 rounded-xl text-sm font-bold" data-type="학습지도" data-event="수업 집중력 부족 및 딴짓">🥱 집중부족/딴짓</button>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-red-500 mb-2 border-b-2 border-red-200 pb-1">🤝 생활 및 교우 관계 지도</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button class="event-btn bg-white border border-red-300 text-red-700 py-3 rounded-xl text-sm font-bold" data-type="생활지도" data-event="친구와 다툼 및 갈등">⚡ 친구 다툼/갈등</button>
+                            <button class="event-btn bg-white border border-red-300 text-red-700 py-3 rounded-xl text-sm font-bold" data-type="생활지도" data-event="거친 언어 및 욕설 사용">🤬 거친 언어/욕설</button>
+                            <button class="event-btn bg-white border border-red-300 text-red-700 py-3 rounded-xl text-sm font-bold" data-type="생활지도" data-event="복도 뛰기 및 위험한 장난">🏃 위험한 장난</button>
+                            <button class="event-btn bg-white border border-red-300 text-red-700 py-3 rounded-xl text-sm font-bold" data-type="생활지도" data-event="기본 생활 규칙 위반">🚫 학급 규칙 위반</button>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-gray-500 mb-2 border-b-2 border-gray-200 pb-1">🏥 출결 및 기타</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button class="event-btn bg-white border border-gray-300 text-gray-700 py-3 rounded-xl text-sm font-bold" data-type="기타" data-event="보건실 방문">💊 보건실 방문</button>
+                            <button class="event-btn bg-white border border-gray-300 text-gray-700 py-3 rounded-xl text-sm font-bold" data-type="기타" data-event="지각/조퇴/결석">⏰ 지각/조퇴/결석</button>
+                            <button class="event-btn bg-white border border-gray-300 text-gray-700 py-3 rounded-xl text-sm font-bold" data-type="기타" data-event="교사 개별 면담 진행">🗣️ 교사 개별 면담</button>
+                            <button class="event-btn bg-white border border-gray-300 text-gray-700 py-3 rounded-xl text-sm font-bold" data-type="기타" data-event="학부모 연락 요망">📱 가정연락 요망</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-3" class="hidden fade-in flex flex-col items-center">
+                <div class="bg-white p-6 rounded-2xl shadow-lg w-full max-w-sm">
+                    <h3 class="text-xl font-bold text-center mb-4 border-b pb-2">기록 확인</h3>
+                    <div class="space-y-4">
+                        <div><p class="text-xs text-gray-400">대상 학생</p><p class="text-lg font-bold text-blue-700" id="confirm-student"></p></div>
+                        <div><p class="text-xs text-gray-400">행동 내용</p><p class="text-lg font-bold" id="confirm-event"></p></div>
+                        <div><p class="text-xs text-gray-400">날짜 선택</p><input type="date" id="date-input" class="w-full p-3 border rounded-lg"></div>
+                        <div><p class="text-xs text-gray-400">상세 메모</p><input type="text" id="memo-input" placeholder="간단한 메모..." class="w-full p-3 border rounded-lg"></div>
+                    </div>
+                    <button id="btn-save" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl mt-6 shadow-md active:bg-blue-800 transition">구글 시트에 저장하기</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- [기록보기 섹션] -->
+        <div id="view-section" class="hidden fade-in flex-1 flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold text-blue-700">📋 지난기록 돌아보기</h2>
+                <!-- 내보내기 버튼 추가 -->
+                <button id="btn-export-csv" class="text-sm bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded-lg shadow-sm transition flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    CSV 내보내기
+                </button>
+            </div>
+            <div class="bg-white p-3 rounded-xl shadow-sm mb-4 flex gap-2">
+                <select id="filter-student" class="flex-1 p-2 border rounded-lg text-sm"><option value="all">전체 학생</option></select>
+                <select id="sort-order" class="p-2 border rounded-lg text-sm"><option value="desc">최신순</option><option value="asc">과거순</option></select>
+            </div>
+            <div id="loading-records" class="text-center py-10 hidden"><p class="text-gray-500">불러오는 중...</p></div>
+            <div id="records-list" class="flex-1 overflow-y-auto space-y-3 pb-10"></div>
+        </div>
+
+    </main>
+
+    <!-- 수정 모달 -->
+    <div id="edit-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl fade-in">
+            <h3 class="text-lg font-bold mb-4 border-b pb-2">기록 수정하기</h3>
+            <div class="space-y-3">
+                <div>
+                    <label class="text-xs text-gray-500 font-bold block mb-1">학생</label>
+                    <input type="text" id="edit-student" readonly class="w-full p-2 border rounded-lg bg-gray-100 text-gray-600 font-medium outline-none">
+                </div>
+                <div>
+                    <label class="text-xs text-gray-500 font-bold block mb-1">분류</label>
+                    <select id="edit-type" class="w-full p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="칭찬">칭찬</option>
+                        <option value="학습지도">학습지도</option>
+                        <option value="생활지도">생활지도</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-xs text-gray-500 font-bold block mb-1">행동 내용</label>
+                    <input type="text" id="edit-event" class="w-full p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="text-xs text-gray-500 font-bold block mb-1">상세 메모</label>
+                    <input type="text" id="edit-memo" class="w-full p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+            <div class="flex gap-2 mt-6">
+                <button onclick="closeEditModal()" class="flex-1 py-3 bg-gray-200 text-gray-700 font-bold rounded-xl hover:bg-gray-300 transition">취소</button>
+                <button id="btn-save-edit" class="flex-1 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition">수정완료</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 삭제 확인 모달 -->
+    <div id="delete-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl fade-in text-center">
+            <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto mb-4">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            </div>
+            <h3 class="text-lg font-bold mb-2">기록을 삭제하시겠습니까?</h3>
+            <p class="text-sm text-gray-500 mb-6">삭제된 기록은 다시 복구할 수 없습니다.</p>
+            <div class="flex gap-2">
+                <button onclick="closeDeleteModal()" class="flex-1 py-3 bg-gray-200 text-gray-700 font-bold rounded-xl hover:bg-gray-300 transition">취소</button>
+                <button id="btn-confirm-delete" class="flex-1 py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition">삭제하기</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 알림 토스트 -->
+    <div id="toast" class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-full opacity-0 transition-opacity duration-300 z-50 shadow-lg font-medium whitespace-nowrap">✅ 저장되었습니다.</div>
+
+    <script>
+        // 가상(Mock) 환경 설정 (에러 방지용)
+        if (typeof google === 'undefined') {
+            window.google = {
+                script: {
+                    run: {
+                        withSuccessHandler: function(callback) {
+                            return {
+                                getStudentNames: function() { setTimeout(() => callback(['김철수', '이영희', '박지민', '최동원', '정하나', '강수진']), 500); },
+                                saveRecord: function(data) { setTimeout(() => callback('success'), 500); },
+                                getAllRecords: function() {
+                                    setTimeout(() => callback([
+                                        { date: '2026-04-20 09:00:00', student: '김철수', type: '칭찬', event: '적극적인 발표 및 수업 참여', memo: '' },
+                                        { date: '2026-04-19 14:30:00', student: '이영희', type: '학습지도', event: '수업 중 떠듦 및 장난', memo: '수학시간' }
+                                    ]), 500);
+                                },
+                                updateRecord: function(oldData, newData) { setTimeout(() => callback('success'), 500); },
+                                deleteRecord: function(record) { setTimeout(() => callback('success'), 500); } 
+                            };
+                        }
+                    }
+                }
+            };
+        }
+
+        let currentStudent, currentEventType, currentEventName, allRecords = [];
+        let editingOriginalRecord = null; 
+        let deletingRecord = null;
+
+        // 초기화: 학생 명단 불러오기 및 기본 날짜 세팅
+        function init() {
+            // 앱 실행 시 오늘 날짜를 기본값으로 입력해 둡니다.
+            const now = new Date();
+            const offset = now.getTimezoneOffset() * 60000;
+            const localDate = new Date(now - offset).toISOString().split('T')[0];
+            document.getElementById('date-input').value = localDate;
+
+            google.script.run.withSuccessHandler(function(names) {
+                const grid = document.getElementById('student-grid');
+                const filter = document.getElementById('filter-student');
+                document.getElementById('loading-students').classList.add('hidden');
+                grid.classList.remove('hidden');
+                
+                names.forEach(name => {
+                    const btn = document.createElement('button');
+                    btn.className = 'bg-white text-blue-800 font-bold py-4 rounded-xl border shadow-sm active:scale-95 transition';
+                    btn.innerText = name;
+                    btn.onclick = () => { currentStudent = name; document.getElementById('display-student').innerText = name; showStep(2); };
+                    grid.appendChild(btn);
+
+                    const opt = document.createElement('option');
+                    opt.value = name; opt.innerText = name; filter.appendChild(opt);
+                });
+            }).getStudentNames();
+        }
+
+        function showStep(s) {
+            ['step-1', 'step-2', 'step-3'].forEach((id, idx) => document.getElementById(id).classList.toggle('hidden', idx + 1 !== s));
+            document.getElementById('btn-back').classList.toggle('hidden', s === 1);
+            
+            if (s === 1) { 
+                const now = new Date();
+                const offset = now.getTimezoneOffset() * 60000;
+                const localDate = new Date(now - offset).toISOString().split('T')[0];
+                document.getElementById('date-input').value = localDate;
+                document.getElementById('memo-input').value = '';
+            }
+        }
+
+        document.getElementById('header-logo').onclick = function() {
+            document.getElementById('record-section').classList.remove('hidden');
+            document.getElementById('view-section').classList.add('hidden');
+            const btnToggle = document.getElementById('btn-toggle-view');
+            btnToggle.innerText = "지난기록 돌아보기";
+            btnToggle.className = "text-sm font-medium bg-blue-500 hover:bg-blue-700 px-3 py-1 rounded-lg transition shadow-sm text-white";
+            showStep(1);
+        };
+
+        document.querySelectorAll('.event-btn').forEach(btn => {
+            btn.onclick = function() {
+                currentEventType = this.dataset.type;
+                currentEventName = this.dataset.event;
+                document.getElementById('confirm-student').innerText = currentStudent;
+                document.getElementById('confirm-event').innerText = `[${currentEventType}] ${currentEventName}`;
+                showStep(3);
+            };
+        });
+
+        document.getElementById('btn-save').onclick = function() {
+            this.disabled = true; this.innerText = "저장 중...";
+            const data = { date: document.getElementById('date-input').value, student: currentStudent, type: currentEventType, event: currentEventName, memo: document.getElementById('memo-input').value };
+            google.script.run.withSuccessHandler(() => {
+                showToast("✅ 저장되었습니다."); this.disabled = false; this.innerText = "구글 시트에 저장하기"; showStep(1);
+            }).saveRecord(data);
+        };
+
+        document.getElementById('btn-toggle-view').onclick = function() {
+            const isView = document.getElementById('record-section').classList.toggle('hidden');
+            document.getElementById('view-section').classList.toggle('hidden', !isView);
+            this.innerText = isView ? "기록하기" : "지난기록 돌아보기";
+            if(isView) fetchRecords(); else showStep(1);
+        };
+
+        function fetchRecords() {
+            document.getElementById('loading-records').classList.remove('hidden');
+            document.getElementById('records-list').innerHTML = ''; 
+            google.script.run.withSuccessHandler(data => {
+                allRecords = data; renderRecords(); document.getElementById('loading-records').classList.add('hidden');
+            }).getAllRecords();
+        }
+
+        function renderRecords() {
+            const filter = document.getElementById('filter-student').value;
+            const sort = document.getElementById('sort-order').value;
+            let filtered = filter === 'all' ? allRecords : allRecords.filter(r => r.student === filter);
+            filtered.sort((a,b) => sort === 'desc' ? new Date(b.date) - new Date(a.date) : new Date(a.date) - new Date(b.date));
+            
+            const list = document.getElementById('records-list');
+            list.innerHTML = filtered.length ? '' : '<p class="text-center py-10 text-gray-400">기록이 없습니다.</p>';
+            
+            filtered.forEach(r => {
+                const card = document.createElement('div');
+                card.className = 'bg-white p-4 rounded-xl shadow-sm border mb-2 relative';
+                
+                let typeBadge = 'bg-gray-100 text-gray-700';
+                if(r.type === '칭찬') typeBadge = 'bg-blue-50 text-blue-700 border-blue-200';
+                if(r.type === '학습지도') typeBadge = 'bg-orange-50 text-orange-700 border-orange-200';
+                if(r.type === '생활지도') typeBadge = 'bg-red-50 text-red-700 border-red-200';
+
+                const recordJson = JSON.stringify(r).replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-1">
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-lg text-gray-800">${r.student}</span>
+                            <span class="text-xs font-bold px-2 py-1 rounded-md border ${typeBadge}">${r.type}</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <span class="text-xs text-gray-500 font-medium mr-1">${r.date.substring(0, 16)}</span>
+                            <button onclick="openEditModal('${recordJson}')" class="text-gray-400 hover:text-blue-600 transition p-1" title="수정하기">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            </button>
+                            <button onclick="openDeleteModal('${recordJson}')" class="text-gray-400 hover:text-red-600 transition p-1" title="삭제하기">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="font-medium text-gray-800 text-base break-words mt-1">${r.event}</p>
+                    ${r.memo ? `<p class="text-sm text-gray-600 bg-gray-50 p-2.5 rounded-lg mt-2 break-words border border-gray-100"><span class="font-bold text-gray-400 text-xs block mb-1">📝 메모</span>${r.memo}</p>` : ''}
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        document.getElementById('btn-export-csv').onclick = function() {
+            if (allRecords.length === 0) return alert('내보낼 기록이 없습니다.');
+            
+            const filter = document.getElementById('filter-student').value;
+            const sort = document.getElementById('sort-order').value;
+            let filtered = filter === 'all' ? allRecords : allRecords.filter(r => r.student === filter);
+            filtered.sort((a,b) => sort === 'desc' ? new Date(b.date) - new Date(a.date) : new Date(a.date) - new Date(b.date));
+
+            let csvContent = "\uFEFF일시,학생이름,구분,행동내용,메모\n";
+            
+            filtered.forEach(r => {
+                const row = [r.date, r.student, r.type, r.event, r.memo].map(field => {
+                    const str = (field || '').toString();
+                    return str.includes(',') || str.includes('"') || str.includes('\n') ? `"${str.replace(/"/g, '""')}"` : str;
+                });
+                csvContent += row.join(",") + "\n";
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            const today = new Date().toISOString().split('T')[0];
+            
+            link.setAttribute("href", url);
+            link.setAttribute("download", `딸깍학급메모_${today}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+
+        // 수정 기능 로직
+        window.openEditModal = function(recordJson) {
+            const record = JSON.parse(recordJson.replace(/&quot;/g, '"'));
+            editingOriginalRecord = record;
+            
+            document.getElementById('edit-student').value = record.student;
+            document.getElementById('edit-type').value = record.type;
+            document.getElementById('edit-event').value = record.event;
+            document.getElementById('edit-memo').value = record.memo || '';
+            document.getElementById('edit-modal').classList.remove('hidden');
+        };
+
+        window.closeEditModal = function() {
+            document.getElementById('edit-modal').classList.add('hidden');
+            editingOriginalRecord = null;
+        };
+
+        document.getElementById('btn-save-edit').onclick = function() {
+            if (!editingOriginalRecord) return;
+            const btn = this;
+            btn.disabled = true;
+            btn.innerText = "수정 중...";
+
+            const newData = {
+                date: editingOriginalRecord.date, 
+                student: editingOriginalRecord.student,
+                type: document.getElementById('edit-type').value,
+                event: document.getElementById('edit-event').value,
+                memo: document.getElementById('edit-memo').value
+            };
+
+            google.script.run.withSuccessHandler((res) => {
+                closeEditModal();
+                btn.disabled = false;
+                btn.innerText = "수정완료";
+                showToast("✅ 성공적으로 수정되었습니다.");
+                fetchRecords(); 
+            }).updateRecord(editingOriginalRecord, newData);
+        };
+
+        // 삭제 기능 로직
+        window.openDeleteModal = function(recordJson) {
+            const record = JSON.parse(recordJson.replace(/&quot;/g, '"'));
+            deletingRecord = record;
+            document.getElementById('delete-modal').classList.remove('hidden');
+        };
+
+        window.closeDeleteModal = function() {
+            document.getElementById('delete-modal').classList.add('hidden');
+            deletingRecord = null;
+        };
+
+        document.getElementById('btn-confirm-delete').onclick = function() {
+            if (!deletingRecord) return;
+            const btn = this;
+            btn.disabled = true;
+            btn.innerText = "삭제 중...";
+
+            google.script.run.withSuccessHandler((res) => {
+                closeDeleteModal();
+                btn.disabled = false;
+                btn.innerText = "삭제하기";
+                showToast("🗑️ 기록이 삭제되었습니다.");
+                fetchRecords(); 
+            }).deleteRecord(deletingRecord);
+        };
+
+        function showToast(msg) { 
+            const t = document.getElementById('toast'); 
+            t.innerText = msg;
+            t.style.opacity = '1'; 
+            setTimeout(() => t.style.opacity = '0', 2000); 
+        }
+
+        document.getElementById('btn-back').onclick = () => showStep(document.getElementById('step-3').classList.contains('hidden') ? 1 : 2);
+        document.getElementById('filter-student').onchange = renderRecords;
+        document.getElementById('sort-order').onchange = renderRecords;
+
+        init();
+    </script>
+</body>
+</html>
