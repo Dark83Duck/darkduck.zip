@@ -714,7 +714,7 @@
     <div class="filter-tabs">
       <button class="filter-tab active" onclick="filterCards('all', this)">전체</button>
       <button class="filter-tab" onclick="filterCards('management', this)">📖 학급경영</button>
-      <button class="filter-tab" onclick="filterCards('study', this)">🏃 T수업활동</button>
+      <button class="filter-tab" onclick="filterCards('study', this)">🏃 수업활동</button>
       <button class="filter-tab" onclick="filterCards('character', this)">🌱 인성교육</button>
       <button class="filter-tab" onclick="filterCards('admin', this)">📋 학교행정</button>
     </div>
@@ -794,6 +794,7 @@
       <div class="card" data-cat="character">
         <div class="card-thumb thumb-amber">
           💛
+			<span class="card-badge badge-prep">준비중</span>
         </div>
         <div class="card-body">
           <div class="card-category">인성교육</div>
@@ -825,6 +826,7 @@
       <div class="card" data-cat="admin">
         <div class="card-thumb thumb-purple">
           📋
+			<span class="card-badge badge-prep">준비중</span>
         </div>
         <div class="card-body">
           <div class="card-category">학교행정</div>
@@ -881,7 +883,7 @@
       </div>
 
       <!-- 카드 6 — 추가 예정 -->
-      <div class="card" data-cat="curriculum" style="background: var(--navy); border-color: #2a2a4a; cursor:pointer;" onclick="window.open('https://github.com/YOUR_USERNAME/YOUR_REPO','_blank')">
+      <div class="card" data-cat="curriculum" style="background: var(--navy); border-color: #2a2a4a; cursor:pointer;" onclick="window.open('https://github.com/Dark83Duck/darkduck.zip','_blank')">
         <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; min-height:240px; padding:2rem; text-align:center; gap:12px;">
           <div style="width:48px;height:48px;border-radius:50%;background:rgba(212,168,71,0.15);border:1px solid rgba(212,168,71,0.3);display:flex;align-items:center;justify-content:center;font-size:22px;">+</div>
           <div style="color:var(--gold-light);font-size:15px;font-weight:700;">더 많은 자료</div>
