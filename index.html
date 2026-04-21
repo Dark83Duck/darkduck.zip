@@ -714,7 +714,7 @@
     <div class="filter-tabs">
       <button class="filter-tab active" onclick="filterCards('all', this)">전체</button>
       <button class="filter-tab" onclick="filterCards('management', this)">📖 학급경영</button>
-      <button class="filter-tab" onclick="filterCards('club', this)">🏃 클럽활동</button>
+      <button class="filter-tab" onclick="filterCards('study', this)">🏃 T수업활동</button>
       <button class="filter-tab" onclick="filterCards('character', this)">🌱 인성교육</button>
       <button class="filter-tab" onclick="filterCards('admin', this)">📋 학교행정</button>
     </div>
@@ -722,13 +722,15 @@
     <!-- Cards Grid -->
     <div class="cards-grid" id="cardsGrid">
 
-      <!-- ============================
-           카드 1 — 딸깍학급메모
-      ============================ -->
+      <!-- 카드1: 딸깍학급메모 -->
       <div class="card" data-cat="management">
         <div class="card-thumb thumb-blue">
           🎨
           <span class="card-badge badge-new">NEW</span>
+          <!-- new인 경우 <span class="card-badge badge-new">NEW</span>
+          업데이트인 경우 <span class="card-badge badge-updated">업데이트</span> 
+          준비중인 경우 <span class="card-badge badge-prep">준비중</span>
+          -->
         </div>
         <div class="card-body">
           <div class="card-category">학급경영</div>
@@ -742,14 +744,6 @@
               <span class="card-date">2026.04.21.</span>
               <span class="card-tag">google sheet</span>
             </div>
-            <!--
-              ★ 구글 드라이브 직접 다운로드 링크 예시 ★
-              원본 공유 링크:
-                https://drive.google.com/file/d/FILE_ID/view?usp=sharing
-              다운로드 링크 (view → uc?export=download):
-                https://drive.google.com/uc?export=download&id=FILE_ID
-              FILE_ID 위치: URL에서 /d/ 와 /view 사이의 문자열
-            -->
             <a
               class="btn-download"
               href="https://docs.google.com/spreadsheets/d/19Q873aWoCKDGs_EPnZ5pn5tDIRheXlu4Evv7dRlL4rQ/copy"
@@ -764,33 +758,33 @@
         </div>
       </div>
 
-      <!-- 카드 2 — 티볼 훈련 -->
-      <div class="card" data-cat="club">
+      <!-- 카드2: 던전퀴즈마스터 -->
+      <div class="card" data-cat="study">
         <div class="card-thumb thumb-green">
           ⚾
-          <span class="card-badge badge-updated">업데이트</span>
+          <span class="card-badge badge-new">NEW</span>
         </div>
         <div class="card-body">
-          <div class="card-category">클럽활동</div>
-          <div class="card-title">티볼 수비 훈련 프로그램</div>
+          <div class="card-category">수업활동</div>
+          <div class="card-title">던전 퀴즈 마스터</div>
           <div class="card-desc">
-            60분 구조화 훈련 포맷과 단계별 수비 드릴.
-            초등학생 눈높이에 맞춘 포지션별 기초 훈련 계획.
+            단원을 마무리할 때 활용할 수 있는<br>
+            게임형 퀴즈 프로그램.
           </div>
           <div class="card-footer">
             <div class="card-meta">
-              <span class="card-date">2026.04</span>
-              <span class="card-tag">DOCX</span>
+              <span class="card-date">2026.04.21.</span>
+              <span class="card-tag">google sheet</span>
             </div>
             <a
               class="btn-download"
-              href="https://drive.google.com/uc?export=download&id=YOUR_FILE_ID_HERE"
+              href="https://docs.google.com/spreadsheets/d/1ESbG_OIGWg-f6JTTKuZsquRRG6RmK9yisVRz8ilNgKo/copy"
               target="_blank"
               rel="noopener"
               download
             >
               <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-              다운로드
+              사본만들기
             </a>
           </div>
         </div>
